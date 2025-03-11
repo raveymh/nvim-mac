@@ -36,6 +36,7 @@ return {
 		},
 		dim = { enbaled = true },
 		explorer = { enabled = true },
+		image = { enabled = true },
 		input = { enabled = true },
 		layout = { enabled = true },
 		lazygit = { enabled = true },
@@ -222,13 +223,6 @@ return {
 			desc = "Search History",
 		},
 		{
-			"<leader>sa",
-			function()
-				Snacks.picker.autocmds()
-			end,
-			desc = "Autocmds",
-		},
-		{
 			"<leader>sb",
 			function()
 				Snacks.picker.lines()
@@ -278,13 +272,6 @@ return {
 			desc = "Highlights",
 		},
 		{
-			"<leader>si",
-			function()
-				Snacks.picker.icons()
-			end,
-			desc = "Icons",
-		},
-		{
 			"<leader>sj",
 			function()
 				Snacks.picker.jumps()
@@ -304,6 +291,13 @@ return {
 				Snacks.picker.loclist()
 			end,
 			desc = "Location List",
+		},
+		{
+			"<leader>sm",
+			function()
+				Snacks.picker.marks()
+			end,
+			desc = "Marks",
 		},
 		{
 			"<leader>sM",
@@ -346,14 +340,14 @@ return {
 			function()
 				Snacks.picker.lsp_definitions()
 			end,
-			desc = "Goto Definition",
+			desc = "Go to Definition",
 		},
 		{
 			"gD",
 			function()
 				Snacks.picker.lsp_declarations()
 			end,
-			desc = "Goto Declaration",
+			desc = "Go to Declaration",
 		},
 		{
 			"gr",
@@ -368,14 +362,14 @@ return {
 			function()
 				Snacks.picker.lsp_implementations()
 			end,
-			desc = "Goto Implementation",
+			desc = "Go to Implementation",
 		},
 		{
 			"gy",
 			function()
 				Snacks.picker.lsp_type_definitions()
 			end,
-			desc = "Goto T[y]pe Definition",
+			desc = "Go to T[y]pe Definition",
 		},
 		{
 			"<leader>ss",
@@ -405,13 +399,6 @@ return {
 				Snacks.notifier.show_history()
 			end,
 			desc = "Notifications",
-		},
-		{
-			"<leader>bd",
-			function()
-				Snacks.bufdelete()
-			end,
-			desc = "Delete Buffer",
 		},
 		{
 			"<leader>cR",

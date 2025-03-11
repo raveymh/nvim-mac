@@ -19,6 +19,8 @@ spec("user.modicator")
 spec("user.navic")
 spec("user.oil")
 spec("user.snacks")
+spec("user.spelunk")
+spec("user.treesitter")
 spec("user.treewalker")
 spec("user.typescript-tools")
 

@@ -27,7 +27,7 @@ return {
 
 			clues = {
 				-- Enhance this by adding descriptions for <Leader> mapping groups
-				{ mode = "n", keys = "<Leader>b", desc = "+Buffers" },
+				{ mode = "n", keys = "<Leader>b", desc = "+Bookmarks" },
 				{ mode = "n", keys = "<Leader>f", desc = "+Find" },
 				{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 				{ mode = "n", keys = "<Leader>l", desc = "+LSP" },
@@ -54,12 +54,12 @@ return {
 		require("mini.icons").setup()
 		require("mini.operators").setup({
 			exchange = { prefix = "me" },
-			multiply = { prefix = "mm" },
+			multiply = { prefix = "md" },
 			replace = { prefix = "mr" },
-			sort = { prefix = "mS" },
+			sort = { prefix = "ms" },
 		})
 		require("mini.pairs").setup()
-		require("mini.splitjoin").setup({ mappings = { toggle = "ms" } })
+		require("mini.splitjoin").setup({ mappings = { toggle = "mS" } })
 		require("mini.indentscope").setup({
 			draw = { animation = require("mini.indentscope").gen_animation.linear({ duration = 35, unit = "total" }) },
 			options = { try_as_border = true },

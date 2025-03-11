@@ -16,7 +16,7 @@ vim.keymap.set("n", "#", "#zz", opts)
 vim.keymap.set("n", "g*", "g*zz", opts)
 vim.keymap.set("n", "g#", "g#zz", opts)
 
--- Quick Search
+-- quick Search
 vim.keymap.set(
 	{ "n" },
 	"gs",
@@ -34,15 +34,15 @@ vim.keymap.set("v", ">", ">gv", opts)
 -- go start/end of line
 vim.keymap.set({ "n", "o", "x" }, "<s-h>", "^", opts)
 vim.keymap.set({ "n", "o", "x" }, "<s-l>", "g_", opts)
-vim.keymap.set({ "n", "o", "x" }, "<s-j>", ")", opts)
-vim.keymap.set({ "n", "o", "x" }, "<s-k>", "(", opts)
+vim.keymap.set({ "n", "o", "x" }, "<s-j>", "<C-d>", opts)
+vim.keymap.set({ "n", "o", "x" }, "<s-k>", "<C-u>", opts)
 
 -- go next/prev indent
 vim.keymap.set({ "n", "o", "x" }, "<C-n>", "}", opts)
 vim.keymap.set({ "n", "o", "x" }, "<C-p>", "{", opts)
 
 -- go matching
-vim.keymap.set({ "n", "o", "x" }, "gm", "%", opts)
+vim.keymap.set({ "n", "o", "x" }, "mm", "%", vim.tbl_extend("force", opts, { desc = "Go matching char" }))
 
 -- find
 vim.keymap.set({ "n", "x" }, "<D-f>", "/", opts)
