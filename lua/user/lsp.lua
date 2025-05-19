@@ -14,9 +14,21 @@ return {
 				vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 				vim.keymap.set(
 					"n",
-					"gl",
+					"gh",
 					"<cmd>lua vim.lsp.buf.hover()<cr>",
 					vim.tbl_extend("force", opts, { desc = "Go hover" })
+				)
+				vim.keymap.set(
+					"n",
+					"gl",
+					"<cmd>lua vim.diagnostic.open_float()<cr>",
+					vim.tbl_extend("force", opts, { desc = "Show diagnostics" })
+				)
+				vim.keymap.set(
+					{ "i" },
+					"<C-k>",
+					"<cmd>lua vim.lsp.buf.signature_help()<cr>",
+					vim.tbl_extend("force", opts, { desc = "Signature" })
 				)
 				vim.keymap.set(
 					"n",
@@ -34,9 +46,9 @@ return {
 		-- 	require("cmp_nvim_lsp").default_capabilities()
 		-- )
 
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-		vim.lsp.handlers["textDocument/signatureHelp"] =
-			vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+		-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+		-- vim.lsp.handlers["textDocument/signatureHelp"] =
+		-- 	vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 		local lsp_zero = require("lsp-zero")
 		require("mason").setup({})
@@ -60,6 +72,11 @@ return {
 					require("lspconfig")[server_name].setup({})
 				end,
 			},
+		})
+
+		require("lspconfig")["gdscript"].setup({
+			name = "godot",
+			cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
 		})
 	end,
 }

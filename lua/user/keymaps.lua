@@ -8,6 +8,9 @@ vim.g.maplocalleader = " "
 -- quit
 vim.keymap.set("n", "<Leader>q", "<Esc>:q!<CR>", vim.tbl_extend("force", opts, { desc = "Quit" }))
 
+-- reload buffer
+vim.keymap.set("n", "<Leader>be", "<Esc>:e!<CR>", vim.tbl_extend("force", opts, { desc = "Reload buffer" }))
+
 -- center search
 vim.keymap.set("n", "n", "nzz", opts)
 vim.keymap.set("n", "N", "Nzz", opts)
@@ -31,15 +34,21 @@ vim.keymap.set("x", "p", [["_dP]])
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
+-- window novigation
+vim.keymap.set({ "n", "o", "x" }, "<C-h>", "<C-w>h", opts)
+vim.keymap.set({ "n", "o", "x" }, "<C-j>", "<C-w>j", opts)
+vim.keymap.set({ "n", "o", "x" }, "<C-k>", "<C-w>k", opts)
+vim.keymap.set({ "n", "o", "x" }, "<C-l>", "<C-w>l", opts)
+
 -- go start/end of line
 vim.keymap.set({ "n", "o", "x" }, "<s-h>", "^", opts)
 vim.keymap.set({ "n", "o", "x" }, "<s-l>", "g_", opts)
-vim.keymap.set({ "n", "o", "x" }, "<s-j>", "<C-d>", opts)
-vim.keymap.set({ "n", "o", "x" }, "<s-k>", "<C-u>", opts)
+vim.keymap.set({ "n", "o", "x" }, "<s-j>", "j$", opts)
+vim.keymap.set({ "n", "o", "x" }, "<s-k>", "k^", opts)
 
 -- go next/prev indent
-vim.keymap.set({ "n", "o", "x" }, "<C-n>", "}", opts)
-vim.keymap.set({ "n", "o", "x" }, "<C-p>", "{", opts)
+vim.keymap.set({ "n", "o", "x" }, "<C-n>", "}zz", opts)
+vim.keymap.set({ "n", "o", "x" }, "<C-p>", "{zz", opts)
 
 -- go matching
 vim.keymap.set({ "n", "o", "x" }, "mm", "%", vim.tbl_extend("force", opts, { desc = "Go matching char" }))
@@ -49,6 +58,9 @@ vim.keymap.set({ "n", "x" }, "<D-f>", "/", opts)
 
 -- save
 vim.keymap.set({ "n", "i" }, "<D-s>", "<Esc><cmd>w<CR>", opts)
+
+-- select all
+vim.keymap.set({ "n", "o", "x" }, "<D-a>", "ggVG", opts)
 
 -- vim.keymap.set({ "n", "v", "x", "o" }, "q", "<Nop>") -- stop macro
 vim.keymap.set({ "n", "v", "x" }, "+", "<C-a>", opts)

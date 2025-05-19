@@ -27,13 +27,12 @@ return {
 
 			clues = {
 				-- Enhance this by adding descriptions for <Leader> mapping groups
-				{ mode = "n", keys = "<Leader>b", desc = "+Bookmarks" },
+				{ mode = "n", keys = "<Leader>b", desc = "+BufDelete" },
 				{ mode = "n", keys = "<Leader>f", desc = "+Find" },
 				{ mode = "n", keys = "<Leader>g", desc = "+Git" },
 				{ mode = "n", keys = "<Leader>l", desc = "+LSP" },
 				{ mode = "n", keys = "<Leader>s", desc = "+Search" },
 				{ mode = "n", keys = "<Leader>u", desc = "+Toggle" },
-				{ mode = "n", keys = "<Leader>c", desc = "+Change" },
 				{ mode = "n", keys = "<Leader>q", desc = "Quit" },
 				miniclue.gen_clues.builtin_completion(),
 				miniclue.gen_clues.g(),
@@ -49,21 +48,23 @@ return {
 				},
 			},
 		})
-		require("mini.move").setup()
-		require("mini.surround").setup()
+		require("mini.cursorword").setup()
+		require("mini.extra").setup()
 		require("mini.icons").setup()
+		require("mini.move").setup()
+		require("mini.pairs").setup()
+		require("mini.sessions").setup({ autowrite = true })
+		require("mini.surround").setup()
+		require("mini.splitjoin").setup({ mappings = { toggle = "mj" } })
 		require("mini.operators").setup({
 			exchange = { prefix = "me" },
 			multiply = { prefix = "md" },
 			replace = { prefix = "mr" },
 			sort = { prefix = "ms" },
 		})
-		require("mini.pairs").setup()
-		require("mini.splitjoin").setup({ mappings = { toggle = "mS" } })
 		require("mini.indentscope").setup({
 			draw = { animation = require("mini.indentscope").gen_animation.linear({ duration = 35, unit = "total" }) },
 			options = { try_as_border = true },
-
 			-- Disable for certain filetypes
 			vim.api.nvim_create_autocmd({ "FileType" }, {
 				desc = "Disable indentscope for certain filetypes",

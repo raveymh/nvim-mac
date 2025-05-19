@@ -20,7 +20,7 @@ function M.config()
 			lualine_b = { "branch", "diff", "diagnostics" },
 			lualine_c = {},
 			lualine_x = {},
-			lualine_y = { "progress", "filetype" },
+			lualine_y = { { "filename", path = 1 }, "filetype" },
 			lualine_z = { { "os.date('%I:%M %p')" } },
 		},
 		inactive_winbar = {},

@@ -7,9 +7,9 @@ return {
 		require("typescript-tools").setup({
 			settings = {
 				tsserver_file_preferences = {
-					includeInlayParameterNameHints = "literals",
-					includeInlayVariableTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayParameterNameHints = "none",
+					includeInlayVariableTypeHints = false,
+					includeInlayFunctionLikeReturnTypeHints = false,
 				},
 				tsserver_format_options = {
 					tabSize = 4,

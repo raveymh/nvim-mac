@@ -24,13 +24,14 @@ return {
 	---@module "snacks"
 	opts = {
 		bigfile = { enabled = true },
+		bufdelete = { enabled = true },
 		dashboard = {
 			enabled = true,
 			sections = {
 				{ section = "header" },
 				{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-				{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
 				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+				{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
 				{ section = "startup" },
 			},
 		},
@@ -47,12 +48,10 @@ return {
 		notify = { enabled = true },
 		picker = {
 			enabled = true,
-			sources = {
-				explorer = { layout = { layout = { position = "right" } } },
-				files = { hidden = true, ignored = true },
-			},
+			layout = { preset = "dropdown" },
 			hidden = true,
 			ignored = true,
+			-- win = { input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } } },
 			exclude = excluded,
 		},
 		quickfile = { enabled = true },
@@ -64,7 +63,7 @@ return {
 		},
 		toggle = { enabled = true },
 		util = { enabled = true },
-		words = { enabled = true },
+		-- words = { enabled = true },
 	},
 
 	keys = {
@@ -79,25 +78,30 @@ return {
 		{
 			"<leader>e",
 			function()
-				Snacks.explorer()
+				Snacks.explorer({ jump = { close = true }, layout = { layout = { position = "right" } } })
 			end,
 			desc = "Explorer",
 		},
 		-- find
 		{
-			"<leader>f<space>",
+			"<D-p>",
 			function()
-				Snacks.picker.smart()
+				Snacks.picker.smart({})
 			end,
 			desc = "Smart Find Files",
 		},
-
 		{
-			"<leader>fb",
+			"<leader>bb",
 			function()
-				Snacks.picker.buffers()
+				Snacks.picker.buffers({ layout = { preset = "select" }, focus = "list" })
 			end,
 			desc = "Buffers",
+		},
+		{
+			"<D-b>",
+			function()
+				Snacks.picker.buffers({ layout = { preset = "select" }, focus = "list" })
+			end,
 		},
 		{
 			"<leader>fc",
@@ -116,21 +120,21 @@ return {
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files()
+				Snacks.picker.git_files({ focus = "list" })
 			end,
 			desc = "Find Git Files",
 		},
 		{
 			"<leader>fp",
 			function()
-				Snacks.picker.projects()
+				Snacks.picker.projects({ focus = "list" })
 			end,
 			desc = "Projects",
 		},
 		{
 			"<leader>fr",
 			function()
-				Snacks.picker.recent()
+				Snacks.picker.recent({ focus = "list" })
 			end,
 			desc = "Recent",
 		},
@@ -138,28 +142,28 @@ return {
 		{
 			"<leader>gb",
 			function()
-				Snacks.picker.git_branches()
+				Snacks.picker.git_branches({ focus = "list" })
 			end,
 			desc = "Git Branches",
 		},
 		{
 			"<leader>gl",
 			function()
-				Snacks.picker.git_log()
+				Snacks.picker.git_log({ focus = "list" })
 			end,
 			desc = "Git Log",
 		},
 		{
 			"<leader>gL",
 			function()
-				Snacks.picker.git_log_line()
+				Snacks.picker.git_log_line({ focus = "list" })
 			end,
 			desc = "Git Log Line",
 		},
 		{
 			"<leader>gs",
 			function()
-				Snacks.picker.git_status()
+				Snacks.picker.git_status({ focus = "list" })
 			end,
 			desc = "Git Status",
 		},
@@ -177,106 +181,83 @@ return {
 			end,
 			desc = "Git Log File",
 		},
-		-- Grep
+		-- Search
 		{
 			"<leader>sb",
-			function()
-				Snacks.picker.lines()
-			end,
-			desc = "Buffer Lines",
-		},
-		{
-			"<leader>sB",
 			function()
 				Snacks.picker.grep_buffers()
 			end,
 			desc = "Grep Open Buffers",
 		},
 		{
-			"<leader>sg",
-			function()
-				Snacks.picker.grep()
-			end,
-			desc = "Grep",
-		},
-		{
-			"<leader>sw",
-			function()
-				Snacks.picker.grep_word()
-			end,
-			desc = "Visual selection or word",
-			mode = { "n", "x" },
-		},
-		-- search
-		{
-			'<leader>s"',
-			function()
-				Snacks.picker.registers()
-			end,
-			desc = "Registers",
-		},
-		{
-			"<leader>s/",
-			function()
-				Snacks.picker.search_history()
-			end,
-			desc = "Search History",
-		},
-		{
-			"<leader>sb",
-			function()
-				Snacks.picker.lines()
-			end,
-			desc = "Buffer Lines",
-		},
-		{
-			"<leader>sc",
-			function()
-				Snacks.picker.command_history()
-			end,
-			desc = "Command History",
-		},
-		{
-			"<leader>sC",
-			function()
-				Snacks.picker.commands()
-			end,
-			desc = "Commands",
-		},
-		{
 			"<leader>sd",
 			function()
-				Snacks.picker.diagnostics()
+				Snacks.picker.diagnostics_buffer({ focus = "list" })
 			end,
 			desc = "Diagnostics",
 		},
 		{
 			"<leader>sD",
 			function()
-				Snacks.picker.diagnostics_buffer()
+				Snacks.picker.diagnostics({ focus = "list" })
+			end,
+			desc = "Project Diagnostics",
+		},
+		{
+			"<D-S-f>",
+			function()
+				Snacks.picker.grep()
+			end,
+			desc = "Grep",
+		},
+		{
+			'<leader>s"',
+			function()
+				Snacks.picker.registers({ focus = "list" })
+			end,
+			desc = "Registers",
+		},
+		{
+			"<leader>sc",
+			function()
+				Snacks.picker.command_history({ focus = "list" })
+			end,
+			desc = "Command History",
+		},
+		{
+			"<leader>sC",
+			function()
+				Snacks.picker.commands({ focus = "list" })
+			end,
+			desc = "Commands",
+		},
+		{
+			"<leader>sd",
+			function()
+				Snacks.picker.diagnostics({ focus = "list" })
+			end,
+			desc = "Diagnostics",
+		},
+		{
+			"<leader>d",
+			function()
+				Snacks.picker.diagnostics_buffer({ focus = "list" })
 			end,
 			desc = "Buffer Diagnostics",
 		},
 		{
 			"<leader>sh",
 			function()
-				Snacks.picker.help()
+				Snacks.picker.help({ focus = "list" })
 			end,
 			desc = "Help Pages",
 		},
 		{
 			"<leader>sH",
 			function()
-				Snacks.picker.highlights()
+				Snacks.picker.highlights({ focus = "list" })
 			end,
 			desc = "Highlights",
-		},
-		{
-			"<leader>sj",
-			function()
-				Snacks.picker.jumps()
-			end,
-			desc = "Jumps",
 		},
 		{
 			"<leader>sk",
@@ -286,21 +267,14 @@ return {
 			desc = "Keymaps",
 		},
 		{
-			"<leader>sl",
-			function()
-				Snacks.picker.loclist()
-			end,
-			desc = "Location List",
-		},
-		{
-			"<leader>sm",
+			"<leader>s'",
 			function()
 				Snacks.picker.marks()
 			end,
 			desc = "Marks",
 		},
 		{
-			"<leader>sM",
+			"<leader>s?",
 			function()
 				Snacks.picker.man()
 			end,
@@ -316,7 +290,7 @@ return {
 		{
 			"<leader>sq",
 			function()
-				Snacks.picker.qflist()
+				Snacks.picker.qflist({ focus = "list" })
 			end,
 			desc = "Quickfix List",
 		},
@@ -328,62 +302,93 @@ return {
 			desc = "Undo History",
 		},
 		{
-			"<leader>uC",
+			"<leader>sC",
 			function()
-				Snacks.picker.colorschemes()
+				Snacks.picker.colorschemes({ focus = "list" })
 			end,
 			desc = "Colorschemes",
+		},
+		{
+			"<leader>st",
+			function()
+				Snacks.picker.treesitter({ focus = "list" })
+			end,
+			desc = "Treesitter",
+		},
+		{
+			"<leader>sr",
+			function()
+				Snacks.picker.resume({ focus = "list" })
+			end,
+			desc = "Resume",
 		},
 		-- LSP
 		{
 			"gd",
 			function()
-				Snacks.picker.lsp_definitions()
+				Snacks.picker.lsp_definitions({ focus = "list" })
 			end,
 			desc = "Go to Definition",
 		},
 		{
 			"gD",
 			function()
-				Snacks.picker.lsp_declarations()
+				Snacks.picker.lsp_declarations({ focus = "list" })
 			end,
 			desc = "Go to Declaration",
 		},
 		{
-			"gr",
+			"gR",
 			function()
-				Snacks.picker.lsp_references()
+				Snacks.picker.lsp_references({ focus = "list" })
 			end,
 			nowait = true,
+			noremap = true,
+			silent = true,
 			desc = "References",
 		},
 		{
 			"gi",
 			function()
-				Snacks.picker.lsp_implementations()
+				Snacks.picker.lsp_implementations({ focus = "list" })
 			end,
 			desc = "Go to Implementation",
 		},
 		{
 			"gy",
 			function()
-				Snacks.picker.lsp_type_definitions()
+				Snacks.picker.lsp_type_definitions({ focus = "list" })
 			end,
 			desc = "Go to T[y]pe Definition",
 		},
 		{
-			"<leader>ss",
+			"<D-o>",
 			function()
-				Snacks.picker.lsp_symbols()
+				Snacks.picker.lsp_symbols({ focus = "list" })
 			end,
 			desc = "LSP Symbols",
 		},
 		{
 			"<leader>sS",
 			function()
-				Snacks.picker.lsp_workspace_symbols()
+				Snacks.picker.lsp_workspace_symbols({ focus = "list" })
 			end,
 			desc = "LSP Workspace Symbols",
+		},
+		-- BufDelete
+		{
+			"<leader>bo",
+			function()
+				Snacks.bufdelete.other()
+			end,
+			desc = "Delete all other buffers",
+		},
+		{
+			"<leader>bd",
+			function()
+				Snacks.bufdelete.all()
+			end,
+			desc = "Delete all buffers",
 		},
 		-- Other
 		{
@@ -396,26 +401,19 @@ return {
 		{
 			"<leader>n",
 			function()
-				Snacks.notifier.show_history()
+				Snacks.notifier.show_history({ focus = "list" })
 			end,
 			desc = "Notifications",
 		},
 		{
-			"<leader>cR",
-			function()
-				Snacks.rename.rename_file()
-			end,
-			desc = "Rename File",
-		},
-		{
 			"<leader>gB",
 			function()
-				Snacks.gitbrowse()
+				Snacks.gitbrowse({ focus = "list" })
 			end,
 			desc = "Git Browse",
 		},
 		{
-			"<leader>g<Space>",
+			"<leader>gg",
 			function()
 				Snacks.lazygit()
 			end,

@@ -1,0 +1,15 @@
+{
+	"Cocos Creator Component": {
+		"prefix": "@ccc",
+		"body": [
+			"import { _decorator, Component, Node } from 'cc';",
+			"const { ccclass, property } = _decorator;",
+			"",
+			"@ccclass('$1')",
+			"export class $1 extends Component {",
+			"  ",
+			"}"
+		],
+		"description": "Cocos Creator Component"
+	}
+}
